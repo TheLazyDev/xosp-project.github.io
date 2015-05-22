@@ -46,7 +46,7 @@ If I have your github username, check https://github.com/OwnROM-Devices, and acc
 <br/>
 Now follow these instructions, don't fork your device tree
 <br/>
-Click on new repository, name should be android_device_<vendor-name>_<device-name>,
+Click on new repository, name should be android_device_vendor-name_device-name,
 for example for Galaxy S5 international unified, it should be android_device_samsung_klte
 <br/>
 Click create, and at the next step, choose import code
@@ -61,9 +61,9 @@ Now, click on the file cm.mk, and click on the pencil to edit<br/>
 There'll be one, or two lines if the device has NFC, which has "vendor/cm"<br/>
 Change them to vendor/ownrom
 <br/>
-There'll also be a line about cm_<device-name>
+There'll also be a line about cm_device-name
 <br/>
-Make it ownrom_<device-name>
+Make it ownrom_device-name
 <br/>
 Also rename the file to ownrom.mk, you can find that at the top near where you clicked on the pencil to edit.
 <br/>
@@ -98,7 +98,7 @@ Lastly, vendorsetup.sh
 <br/>
 Whatever the contents are, delete it, and make it
 <br/>
-add_lunch_combo ownrom-<device-name>_userdebug
+add_lunch_combo ownrom-device-name_userdebug
 <br/>
 Commit it <br/>
 And that's it, you've done ownifying!!!!
@@ -107,7 +107,7 @@ Now once the repo has finished syncing with no errors, go back to the terminal
 <hr>
 . build/envsetup.sh
 <br/>
-time brunch <device-name>
+time brunch device-name
 <hr>
 The brunch command, will fetch device tree and dependencies of your device, and build ownrom for it :D
 <br/>
