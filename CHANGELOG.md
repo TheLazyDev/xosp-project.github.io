@@ -8,11 +8,14 @@ PLANNED
 
 - Add new post
 - Add team section
-- Fix up build guide
 - Add in a working changelog
 - Add kitkat features 
 - Fix up some css
 - Clean up code
+
+#####2015-05-22
+
+- Updated build guide
 
 #####2015-05-15
 

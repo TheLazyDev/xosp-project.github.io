@@ -40,6 +40,13 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+<style>
+body {
+    text-align: center;
+    text-size: 10px;
+}
+</style>
 </head>
 
 <body data-spy="scroll">
@@ -80,42 +87,99 @@
     <section id="about" class="about section">
         <div class="container">
             <h2></h2>
-            <h2 class="title text-center">OwnROM Build guide</h2>
-            <h4 class="title text-center">Updated: Apr 25, 2015</h4>
-            <p class="intro text-center"> [Warning needs work]</p>
-            <p class="intro text-center">
-                Getting Started</p>
-            <p class="intro text-center">To get started with building OwnROM, you'll need to get familiar with Git and Repo.</p>
-            <p class="intro text-center">Then to initialize your local repository using the OwnROM trees, use this command:</p>
-            <div class="code-block">
-                <pre><code class="language-markup">
-   repo init -u https://github.com/OwnROM/android.git -b cm-12.1
-                    </code></pre>
-            </div>
-            <!--//code-block-->
-            <p class="intro text-center">Then to sync up:</p>
-            <div class="code-block">
-                <pre><code class="language-markup">
-   repo sync
-                    </code></pre>
-            </div>
-            <!--//code-block-->
-            <p class="intro text-center">Then to build:</p>
-            <div class="code-block">
-                <pre><code class="language-markup">
-   . build/envsetup.sh
-    lunch
-    mka ownrom
-                    </code></pre>
-            </div>
-            <!--//code-block-->
-            <p class="intro text-center">If you know how many threads you want to build with, for example 8, then do make -j8 ownrom instead of mka ownrom Else you can simply run our build script by running the following command ./build-ownrom.sh</p>
-            <p class="intro text-center">You can speed up subsequent builds by adding this command in terminal:</p>
-            <div class="code-block">
-                <pre><code class="language-markup">
-   export USE_CCACHE=1
-                    </code></pre>
-                     <div id="disqus_thread"></div>
+            <h2 class="title text-center">Build Guide</h2>
+            <h4 class="title text-center">May 22, 2015</h4>
+
+            So, here are the steps if you've set up your PC for rom building.
+<br/>
+If you haven't, there's a great guide for it on xda by jackeagle, can be found <a href="http://forum.xda-developers.com/chef-central/android/guide-android-rom-development-t2814763">here</a>
+<hr>
+Open a terminal, cd to the path of your choice, make a directory for holding the source
+<br/>
+Then copy paste the following code into the terminal
+<br/>
+repo init -u https://github.com/OwnROM/android.git -b cm-12.1
+<br/>
+time repo sync -f
+<hr>
+The above step will take quite a while, as it downloads the sources, >=16 GigaBytes of code
+<br/>
+If I have your github username, check https://github.com/OwnROM-Devices, and accept the invite
+<br/>
+Now follow these instructions, don't fork your device tree
+<br/>
+Click on new repository, name should be android_device_vendor-name_device-name,
+for example for Galaxy S5 international unified, it should be android_device_samsung_klte
+<br/>
+Click create, and at the next step, choose import code
+<br/>
+Give the link to cm-12.1 device tree for your device, maybe from CyanogenMod, maybe from your device's developers git
+<br/>
+Once that's done, proceed to repository, go to the settings, and under default branch, select cm-12.1
+<br/>
+Go back to the repo, and under branches, delete all others
+<hr>
+Now, click on the file cm.mk, and click on the pencil to edit<br/>
+There'll be one, or two lines if the device has NFC, which has "vendor/cm"<br/>
+Change them to vendor/ownrom
+<br/>
+There'll also be a line about cm_device-name
+<br/>
+Make it ownrom_device-name
+<br/>
+Also rename the file to ownrom.mk, you can find that at the top near where you clicked on the pencil to edit.
+<br/>
+Then scroll down, and commit changes
+<br/>
+Time to edit cm.dependencies, starting with its rename to ownrom.dependencies
+<br/>
+Then, where it says repository, add the name of the git where you got it from, if cm, then make it "repository": "CyanogenMod/.......",
+<br/>
+Before the first closing }, add the , to the line above, and write
+<br/>
+"remote": "github",<br/>
+"revision": "cm-12.1"<br/>
+<br/>
+After that should come the closing }
+<br/>
+If your device has a common device tree, and that too has dependencies, then copy them into this dependencies file, and edit as explained
+<br/>
+Make sure, that within a pair of { }, all lines except the last end with a , and that all { } except the last set, end with a ,
+<br/>
+Since I'm sure you've got it by now, add an entry to vendor blobs for your device here, generally they can be found at TheMuppets GitHub
+<br/>
+Refer to these commits for help
+<br/>
+https://github.com/OwnROM-Devices/android_device_moto_shamu/commit/b42aa2774d368c5aa186021d526a822bc5547ef5
+<br/>
+https://github.com/OwnROM-Devices/android_device_moto_shamu/commit/6ef60345d598c466282ac0788d3e44854ce7437b
+<br/>
+https://github.com/OwnROM-Devices/android_device_moto_shamu/commit/c3c113a350bb1e465f83e0b80c4e69274302fc3d
+<br/>
+Lastly, vendorsetup.sh
+<br/>
+Whatever the contents are, delete it, and make it
+<br/>
+add_lunch_combo ownrom-device-name_userdebug
+<br/>
+Commit it <br/>
+And that's it, you've done ownifying!!!!
+<hr>
+Now once the repo has finished syncing with no errors, go back to the terminal
+<hr>
+. build/envsetup.sh
+<br/>
+time brunch device-name
+<hr>
+The brunch command, will fetch device tree and dependencies of your device, and build ownrom for it :D
+<br/>
+PM Akhil Narang on hangouts before this, so I can give you a modified file, so build will show as nightly instead of unofficial
+<br/>
+Best of luck, bye!!!
+<hr>
+
+
+                <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = 'ownrom';
@@ -128,12 +192,13 @@
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-            </div>
-            <!--//code-block-->
+
         </div>
+
+
         <!--//container-->
     </section>
-     </section>
+    </section>
       <section id="contact" class="contact section has-pattern">
         <div class="container">
             <div class="contact-inner">
@@ -161,6 +226,8 @@
         </div>
         <!--//container-->
     </footer>
+
+
     <!--//about-->
     <!-- Javascript -->
     <script type="text/javascript" src="assets/plugins/jquery-1.11.1.min.js"></script>
@@ -189,4 +256,3 @@
 </body>
 
 </html>
-
