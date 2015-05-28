@@ -8,7 +8,7 @@
 /* Default */
 /* ======= Base ======= */
 body {
-  font-family: 'Lato', arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #444444;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
@@ -20,7 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 700;
   color: #0b9b8c;
 }
@@ -41,7 +41,7 @@ a.btn {
   -moz-transition: all 0.4s ease-in-out;
   -ms-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
-  font-family: 'Montserrat', arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   padding: 8px 16px;
   font-weight: bold;
 }
@@ -58,7 +58,7 @@ a.btn-cta-primary,
   background: #253238;
   border: 1px solid #253238;
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
 }
 a.btn-cta-primary:hover,
@@ -72,7 +72,7 @@ a.btn-cta-secondary,
   background: #ceebe8;
   border: 1px solid #ceebe8;
   color: #253238;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
 }
 a.btn-cta-secondary:hover,
@@ -146,7 +146,7 @@ pre code {
 .header .main-nav .nav .nav-item {
   font-weight: normal;
   margin-right: 30px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .header .main-nav .nav .nav-item.active a {
   color: #0b9b8c;
@@ -189,9 +189,11 @@ pre code {
   font-size: 98px;
   color: #253238;
   margin-top: 0;
+  font-weight: 300;
 }
 .promo .title .highlight {
   color: #ceebe8;
+  font-weight: 500;
 }
 .promo .intro {
   font-size: 28px;
