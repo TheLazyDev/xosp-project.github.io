@@ -42,12 +42,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-<style>
-body {
-    text-align: center;
-    text-size: 10px;
-}
-</style>
+
 </head>
 
 <body data-spy="scroll">
@@ -89,95 +84,376 @@ body {
         <div class="container">
             <h2></h2>
             <h2 class="title text-center">Build Guide</h2>
-            <h4 class="title text-center">May 22, 2015</h4>
+            <h4 class="title text-center">June 2, 2015</h4>
 
-            So, here are the steps if you've set up your PC for rom building.
-<br/>
-If you haven't, there's a great guide for it on xda by jackeagle, can be found <a href="http://forum.xda-developers.com/chef-central/android/guide-android-rom-development-t2814763">here</a>
-<hr>
-Open a terminal, cd to the path of your choice, make a directory for holding the source
-<br/>
-Then copy paste the following code into the terminal
-<br/>
-repo init -u https://github.com/OwnROM/android.git -b cm-12.1
-<br/>
-time repo sync -f
-<hr>
-The above step will take quite a while, as it downloads the sources, >=16 GigaBytes of code
-<br/>
-If I have your github username, check https://github.com/OwnROM-Devices, and accept the invite
-<br/>
-Now follow these instructions, don't fork your device tree
-<br/>
-Click on new repository, name should be android_device_vendor-name_device-name,
-for example for Galaxy S5 international unified, it should be android_device_samsung_klte
-<br/>
-Click create, and at the next step, choose import code
-<br/>
-Give the link to cm-12.1 device tree for your device, maybe from CyanogenMod, maybe from your device's developers git
-<br/>
-Once that's done, proceed to repository, go to the settings, and under default branch, select cm-12.1
-<br/>
-Go back to the repo, and under branches, delete all others
-<hr>
-Now, click on the file cm.mk, and click on the pencil to edit<br/>
-There'll be one, or two lines if the device has NFC, which has "vendor/cm"<br/>
-Change them to vendor/ownrom
-<br/>
-There'll also be a line about cm_device-name
-<br/>
-Make it ownrom_device-name
-<br/>
-Also rename the file to ownrom.mk, you can find that at the top near where you clicked on the pencil to edit.
-<br/>
-Then scroll down, and commit changes
-<br/>
-Time to edit cm.dependencies, starting with its rename to ownrom.dependencies
-<br/>
-Then, where it says repository, add the name of the git where you got it from, if cm, then make it "repository": "CyanogenMod/.......",
-<br/>
-Before the first closing }, add the , to the line above, and write
-<br/>
-"remote": "github",<br/>
-"revision": "cm-12.1"<br/>
-<br/>
-After that should come the closing }
-<br/>
-If your device has a common device tree, and that too has dependencies, then copy them into this dependencies file, and edit as explained
-<br/>
-Make sure, that within a pair of { }, all lines except the last end with a , and that all { } except the last set, end with a ,
-<br/>
-Since I'm sure you've got it by now, add an entry to vendor blobs for your device here, generally they can be found at TheMuppets GitHub
-<br/>
-Refer to these commits for help
-<br/>
-https://github.com/OwnROM-Devices/android_device_moto_shamu/commit/b42aa2774d368c5aa186021d526a822bc5547ef5
-<br/>
-https://github.com/OwnROM-Devices/android_device_moto_shamu/commit/6ef60345d598c466282ac0788d3e44854ce7437b
-<br/>
-https://github.com/OwnROM-Devices/android_device_moto_shamu/commit/c3c113a350bb1e465f83e0b80c4e69274302fc3d
-<br/>
-Lastly, vendorsetup.sh
-<br/>
-Whatever the contents are, delete it, and make it
-<br/>
-add_lunch_combo ownrom-device-name_userdebug
-<br/>
-Commit it <br/>
-And that's it, you've done ownifying!!!!
-<hr>
-Now once the repo has finished syncing with no errors, go back to the terminal
-<hr>
-. build/envsetup.sh
-<br/>
-time brunch device-name
-<hr>
-The brunch command, will fetch device tree and dependencies of your device, and build ownrom for it :D
-<br/>
-PM Akhil Narang on hangouts before this, so I can give you a modified file, so build will show as nightly instead of unofficial
-<br/>
-Best of luck, bye!!!
-<hr>
+            <h4 class="title text-center">So you want to build OwnROM? Well then, here is how:</h4>
+
+<h4>First you have to make sure you have a pc that meets the following requirements:</h4>
+<br>
+ - A Linux or Mac OS system.
+ <br>
+ <br>
+	It is also possible to build Android in a virtual machine on unsupported systems such as Windows.
+	<br>
+	<br>
+	If you are running Linux in a virtual machine, you need at least 16GB of RAM/swap and 100GB or more of disk space in order to build the Android tree.
+	<br>
+	<br>
+	See disk size requirements below.
+	<br>
+	<br>
+ - A 64-bit environment is required for Gingerbread (2.3.x) and newer versions,
+ <br>
+	including the master branch. You can compile older versions on 32-bit systems.
+	<br>
+	<br>
+ - At least 100GB of free disk space for a checkout, 150GB for a single build,
+ <br>
+	and 200GB or more for multiple builds. If you employ ccache, you will need even more space.
+	<br>
+	<br>
+
+If your pc meets this requirements then your ready to download and get building...
+<br>
+<br>
+
+This whole tutorial is made assuming you have the latest Ubuntu version running on your pc, if not click HERE (link will follow)
+for our "how to install Ubuntu on my pc" guide...
+<br>
+            <br>
+
+            Now lets get your machine ready to build OwnROM:
+<br>
+
+
+            <h4>Downloadin and installing the Android SDK:</h4>
+<br>
+
+- Go to <a href="http://developer.android.com/sdk/index.html" target="_blank">Here</a> and scroll down to "SDK Tools Only" and download the Linux Version.
+<br>
+ <br>
+- Accept the Terms and Conditions and download the package.
+ <br>
+ <br>
+- Extract the SDK package you just downloaded and rename it to: "android-sdk"
+ <br>
+ <br>
+- Remove the extracted and renamed folder to your "Home" directory.
+ <br>
+ <br>
+- Stay in your home folder and pres "Ctrl + H" and find your ".bashrc" file.
+ <br>
+ <br>
+- Open this file with the editor of your choise and scrool all the way down and add this lines at the bottom of the file:
+ <br>
+ <br>
+
+
+
+    <div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+  " # Android tools
+	export PATH=${PATH}:~/android-sdk/tools
+	export PATH=${PATH}:~/android-sdk/platform-tools
+	export PATH=${PATH}:~/bin "
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+
+
+	<br>
+	<br>
+- Safe and close the file.
+ <br>
+ <br>
+- Now search for your ".profile" file in your "Home" folder.
+ <br>
+ <br>
+- Open it and add this lines at the bottom of the file:
+ <br>
+ <br>
+
+ <div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+ "PATH="$HOME/android-sdk/tools:$HOME/android-sdk/platform-tools:$PATH"
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+
+
+  <br>
+  <br>
+- Save and close.
+ <br>
+ <br>
+- Now open a terminal end make this command:
+<br>
+<br>
+
+    <div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+ "$ android"
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+
+
+
+	<br>
+	<br>
+- If the SDK pops up then you have succesfully installed the "Android-SDK"
+ <br>
+ <br>
+- In the SDK check every box from the latest android versions and all the build tools and select install
+ <br>
+ <br>
+- Accept every license and let them install....
+<br>
+            <br>
+
+            <h4>Configure your USB Ports:</h4>
+<br>
+
+- Open a new terminal and type:
+<br>
+<br>
+
+ <div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+	$ sudo apt-get install gksu
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+
+	<br>
+	<br>
+- If the installation is complete type:
+<br>
+<br>
+
+ <div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+	$ gksudo gedit /etc/udev/rules.d/51-android.rules
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+
+
+	<br>
+	<br>
+- Inside of this blank text file insert:
+<br>
+<br>
+
+ <div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+"#Acer
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0502", MODE="0666"
+
+	#ASUS
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0b05", MODE="0666"
+
+	#Dell
+	SUBSYSTEM=="usb", ATTR{idVendor}=="413c", MODE="0666"
+
+	#Foxconn
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0489", MODE="0666"
+
+	#Garmin-Asus
+	SUBSYSTEM=="usb", ATTR{idVendor}=="091E", MODE="0666"
+
+	#Google
+	SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666"
+
+	#HTC
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0bb4", MODE="0666"
+
+	#Huawei
+	SUBSYSTEM=="usb", ATTR{idVendor}=="12d1", MODE="0666"
+
+	#K-Touch
+	SUBSYSTEM=="usb", ATTR{idVendor}=="24e3", MODE="0666"
+
+	#KT Tech
+	SUBSYSTEM=="usb", ATTR{idVendor}=="2116", MODE="0666"
+
+	#Kyocera
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0482", MODE="0666"
+
+	#Lenevo
+	SUBSYSTEM=="usb", ATTR{idVendor}=="17EF", MODE="0666"
+
+	#LG
+	SUBSYSTEM=="usb", ATTR{idVendor}=="1004", MODE="0666"
+
+	#Motorola
+	SUBSYSTEM=="usb", ATTR{idVendor}=="22b8", MODE="0666"
+
+	#NEC
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0409", MODE="0666"
+
+	#Nook
+	SUBSYSTEM=="usb", ATTR{idVendor}=="2080", MODE="0666"
+
+	#Nvidia
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0955", MODE="0666"
+
+	#OTGV
+	SUBSYSTEM=="usb", ATTR{idVendor}=="2257", MODE="0666"
+
+	#Pantech
+	SUBSYSTEM=="usb", ATTR{idVendor}=="10A9", MODE="0666"
+
+	#Philips
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0471", MODE="0666"
+
+	#PMC-Sierra
+	SUBSYSTEM=="usb", ATTR{idVendor}=="04da", MODE="0666"
+
+	#Qualcomm
+	SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", MODE="0666"
+
+	#SK Telesys
+	SUBSYSTEM=="usb", ATTR{idVendor}=="1f53", MODE="0666"
+
+	#Samsung
+	SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666"
+
+	#Sharp
+	SUBSYSTEM=="usb", ATTR{idVendor}=="04dd", MODE="0666"
+
+	#Sony Ericsson
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0fce", MODE="0666"
+
+	#Toshiba
+	SUBSYSTEM=="usb", ATTR{idVendor}=="0930", MODE="0666"
+
+	#ZTE
+	SUBSYSTEM=="usb", ATTR{idVendor}=="19D2", MODE="0666""
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+
+
+
+	<br>
+	<br>
+- Save and close the file.
+ <br>
+ <br>
+- In your terminal you make the following command:
+<br>
+<br>
+
+ <div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+	$ sudo chmod a+r /etc/udev/rules.d/51-android.rules
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+
+
+<br>
+<br>
+           <br>
+            <h4>Installing Dependencies and Download the OwnROM Source:</h4>
+<br>
+we have an automated script ready for you to download the things you need...
+<br>
+
+Open a new terminal and make the following Commands:
+<br>
+<br>
+
+ <div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+	$ git clone https://github.com/OwnROM/Setup.sh
+
+	$ . Setup.sh/setup.sh
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+
+
+	<br>
+	<br>
+	(watch the space between the "." and "Setup.sh/setup.sh")
+	<br>
+Follow the instructions and wait for it to finish, this is going to take long time...
+<br>
+            <br>
+
+            <h4>Lets start building:</h4>
+<br>
+- Make the following commands:
+<br>
+<br>
+
+ <div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+	$ cd path/to/your/ownrom/root/directory
+	$ . ownrom.sh
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+<br>
+<br>
+
+	(again the space between "." and ownrom.sh)
+
+	<br>
+	<br>
+- And follow the instructions
+ <br>
+- When your build is finished whithout any problems you'll see something like this:
+<br>
+<br>
+
+<div class="block">
+    <div class="code-block">
+    <pre><code class="language-javascript">
+	"Package Complete: /home/user/Desktop/OwnROM/out/target/product/<device codename>/OwnROM-ALPHA-0.1-UNOFFICAL-2015.06.02.zip"
+                    </code></pre>
+                </div><!--//code-block-->
+            </div><!--//block-->
+
+
+
+
+	<br>
+	<br>
+- Head over to this directory and copy the .zip package to your phone and flash it in a custom recovery.
+<br>
+<br>
+This was it...
+<br>
+<br>
+            <h4>Trouble Shooting:</h4>
+<br>
+If you have any problems:
+<br>
+<br>
+Head over to our  <a href="http://bit.ly/1Fye9Gd" target="_blank">G+ community</a> and contact us there under the building OwnROM category...
+
+
 
 
                 <div id="disqus_thread"></div>
