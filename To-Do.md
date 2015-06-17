@@ -1,6 +1,6 @@
 PLANNED
 
-- Add team section
-- Fix up some css
+- Update team section with maintanied devices
+- Add screenshot page
 - Clean up code
-- Add in nightly download links
+

@@ -1,4 +1,4 @@
-/*   
+/*
  * Template Name: devAid - Responsive Website Template for developers
  * Version: 1.0
  * Author: Xiaoying Riley at 3rd Wave Media
@@ -459,8 +459,8 @@ pre code {
 }
 .contact .author-message .speech-bubble {
   margin-left: 155px;
-  background: #10b2e7;
-  color: #074f66;
+  background: #ffffff;
+  color: #253238;
   padding: 30px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -473,13 +473,13 @@ pre code {
   position: relative;
 }
 .contact .author-message .speech-bubble .sub-title {
-  color: #074f66;
+  color: #253238;
   font-size: 16px;
   margin-top: 0;
   margin-bottom: 30px;
 }
 .contact .author-message .speech-bubble a {
-  color: #fff;
+  color: #0b9b8c;
 }
 .contact .author-message .speech-bubble:after {
   position: absolute;
@@ -491,16 +491,16 @@ pre code {
   height: 0;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-right: 10px solid #10b2e7;
+  border-right: 10px solid #253238;
 }
 .contact .author-message .speech-bubble .source {
   margin-top: 30px;
 }
 .contact .author-message .speech-bubble .source a {
-  color: #074f66;
+  color: #0b9b8c;
 }
 .contact .author-message .speech-bubble .source .title {
-  color: #0c86ae;
+  color: #253238;
 }
 .contact .info .sub-title {
   color: #253238;
