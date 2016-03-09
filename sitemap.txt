@@ -1,9 +1,0 @@
-http://owndroid.nl/
-http://owndroid.nl/index.html
-http://owndroid.nl/post1.html
-http://owndroid.nl/post2.html
-http://owndroid.nl/guide1.html
-http://owndroid.nl/olddownloads.html
-http://owndroid.nl/changelog.html
-http://owndroid.nl/media.html
-http://owndroid.nl/Stats/stats.php
