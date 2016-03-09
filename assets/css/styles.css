@@ -196,16 +196,16 @@ pre code {
   color: #ceebe8;
   font-weight: 500;
 }
-.promo.logo {
-  height:500px;
-  width:500px;
-}
-.promo.logo.background{
-  max-width:100%; 
-  max-height:100%;
+
+/*.promo.logo{
+  max-width:50%; 
+  max-height:50%;
+  height:auto;
+  width:auto;
   margin:auto;
   display:auto;
-}
+  background-size:auto;
+}*/
 .promo .intro {
   font-size: 28px;
   max-width: 680px;
